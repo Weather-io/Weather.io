@@ -1,7 +1,8 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './client/index.jsx', //Entry point
+  entry: './client/index.jsx', // Entry point
   output: {
     path: path.resolve(__dirname, 'dist'), // The output directory
     filename: 'bundle.js', // The name of our output file
@@ -20,7 +21,7 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
+        test: /\.scss$/i,
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
@@ -41,8 +42,17 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'] // Automatically resolve these extensions
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'client/index.html', // Path to our original index.html
+      filename: 'index.html' // Output file name (in the dist folder)
+    })
+  ],
   devServer: {
-    contentBase: path.join(__dirname, 'dist'), // Tell dev-server where to look for files.
-    port: 3000,
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    port: 3000, // The port dev server will run on
+    historyApiFallback: true, // Used for single-page apps
   }
 };
