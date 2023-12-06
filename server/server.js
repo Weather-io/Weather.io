@@ -1,12 +1,15 @@
 const express = require ('express');
 const path = require ('path');
 const app = express();
+const cors = require('cors');
 const PORT = 8080;
 const weatherController = require('./controllers/weatherController');
 const db = require('./database');
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+
+app.use(cors());
 
 //connect to database
 db();
@@ -17,7 +20,7 @@ app.get('/', (req, res) => {
 
 // API route for fetching weather data from openweathermap
 app.get('/forecast', weatherController.getWeather, (req, res) => {
-  res.status(200).json(res.locals.getWeather);
+  res.status(200).json(res.locals.weatherData);
 });
 
 

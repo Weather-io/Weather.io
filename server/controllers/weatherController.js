@@ -8,7 +8,7 @@ const apiURL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&a
 const response = await fetch(apiURL)
 .then((res) => res.json());
 
-res.locals = response;
+res.locals.weatherData = response;
 console.log('Weather data successfully retrieved!');
 return next();
 }
