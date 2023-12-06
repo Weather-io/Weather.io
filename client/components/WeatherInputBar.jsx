@@ -1,31 +1,26 @@
 import React, { useState } from 'react';
 
 const WeatherInputBar = ({ onWeatherDataChange }) => {
-    const [zipCode, setZipCode] = useState('');
+    const [zipcode, setZipcode] = useState('');
   
     const handleInputChange = (e) => {
-      setZipCode(e.target.value);
+      setZipcode(e.target.value);
     };
   
     const handleSubmit = (e) => {
       e.preventDefault();
-  
-      fetch(`/forecast?zipcode=${zipCode}`)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`Error: ${response.statusText}`);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
-          console.log('Weather data successfully retrieved!');
-        })
-        .catch((error) => {
-          console.error('An error occurred while fetching weather data:', error.message);
-          // Handle error as needed
-        });
-    };
+      fetch(`http://localhost:8080/forecast?zipcode=${zipcode}`)
+          .then((response) => {
+              return response.json();
+          })
+          .then((data) => {
+              console.log('Weather data successfully retrieved!');
+              onWeatherDataChange(data);
+          })
+          .catch((error) => {
+              console.error('An error occurred while fetching weather data:', error.message);
+          });
+  };
   
     return (
       <div>
@@ -34,7 +29,7 @@ const WeatherInputBar = ({ onWeatherDataChange }) => {
             Enter Zip Code:
             <input
               type="text"
-              value={zipCode}
+              value={zipcode}
               onChange={handleInputChange}
             />
           </label>
