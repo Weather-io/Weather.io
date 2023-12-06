@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import WeatherStat from './WeatherStat'; // Component displaying individual weather stats
+import '../assets/styles/styles.scss';
 
 function CurrentContainer() {
   const apiResponse1 = {
@@ -93,27 +94,39 @@ const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`
     return <div>Loading weather data...</div>;
   }
 
+  // Format date and time
+  const dateTimeStr = new Date(weatherData.current.dt * 1000).toLocaleString();
+
   //Individual WeatherStat components to be rendered
   return (
     <div className="current-container">
-      <WeatherStat label="Date/Time" value={new Date(weatherData.current.dt * 1000).toLocaleString()} />
+        <div className="weather-header"> 
+            <div className="weather-location">LOCATION</div>
+            <div className="weather-date-time">{dateTimeStr}</div>
+        </div>
+        <div className="weather-main">
+            <img src={iconUrl} alt="Weather Icon"/>
+            <WeatherStat label="Feels Like" value={`${convertKelvinToFahrenheit(weatherData.current.feels_like)} °F`} />
+            <WeatherStat label="Temperature" value={`${convertKelvinToFahrenheit(weatherData.current.temp)} °F`} />
+            <WeatherStat label="Clouds" value={`${weatherData.current.clouds}%`} />
+        </div>
+        <div className="weather-details">
       <WeatherStat label="Sunrise" value={new Date(weatherData.current.sunrise * 1000).toLocaleTimeString()} />
       <WeatherStat label="Sunset" value={new Date(weatherData.current.sunset * 1000).toLocaleTimeString()} />
-      <WeatherStat label="Temperature" value={`${convertKelvinToFahrenheit(weatherData.current.temp)} °F`} />
-      <WeatherStat label="Feels Like" value={`${convertKelvinToFahrenheit(weatherData.current.feels_like)} °F`} />
-      <WeatherStat label="Pressure" value={`${weatherData.current.pressure} hPa`} />
       <WeatherStat label="Humidity" value={`${weatherData.current.humidity}%`} />
       <WeatherStat label="Dew Point" value={`${convertKelvinToFahrenheit(weatherData.current.dew_point)} °F`} />
       <WeatherStat label="UV Index" value={weatherData.current.uvi} />
-      <WeatherStat label="Clouds" value={`${weatherData.current.clouds}%`} />
       <WeatherStat label="Visibility" value={`${weatherData.current.visibility} meters`} />
-      <WeatherStat label="Wind Speed" value={`${weatherData.current.wind_speed} m/s`} />
-      <WeatherStat label="Wind Direction" value={`${weatherData.current.wind_deg}°`} />
-      <WeatherStat label="Wind Gust" value={`${weatherData.current.wind_gust} m/s`} />
-      {/* {weatherData.weather[0].map((w, index) => (
-        <WeatherStat key={index} label="Weather Condition" value={`${w.main}: ${w.description}`} />
-      ))} */}
-      <img src={iconUrl} alt="Weather Icon"/>
+        <div className="weather-wind">
+        <WeatherStat label="Wind Direction" value={`${weatherData.current.wind_deg}°`} />
+            <WeatherStat label="Wind Speed" value={`${weatherData.current.wind_speed} m/s`} />
+            <WeatherStat label="Wind Gust" value={`${weatherData.current.wind_gust} m/s`} />
+            <WeatherStat label="Pressure" value={`${weatherData.current.pressure} hPa`} />
+        </div>
+            {/* {weatherData.weather[0].map((w, index) => (
+            <WeatherStat key={index} label="Weather Condition" value={`${w.main}: ${w.description}`} />
+            ))} */}
+        </div>
     </div>
   );
 }

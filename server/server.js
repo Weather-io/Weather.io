@@ -16,6 +16,7 @@ app.get('/forecast', weatherController.getWeather, (req, res) => {
   res.status(200).json(res.locals.getWeather);
 });
 
+
 //catch-all for unknown paths
 app.all('*', (req, res) => {
   res.status(404).send('The page you\'re looking for doesn\'t exist!');
@@ -33,6 +34,8 @@ app.use((err, req, res, next) => {
  console.log(`Backend error: ${errorObj.message}`);
  return res.status(errorObj.status).json(errorObj.message)
 });
+
+
 
 app.listen (PORT, () => console.log(`listening on PORT: ${PORT}`));
 
