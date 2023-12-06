@@ -89,3 +89,29 @@ body {
     height: auto;
   }
   
+  .caption {
+    margin-left: 8px;
+  }
+
+  .image-container {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  #nav-bar {
+    background: #54416d;
+    font-weight: bold;
+    font-size: 25px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 100%;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1); 
+  }
+
+  #home-nav {
+    color: black;
+    font-weight: bold;
+    font-size: 25px;
+  }

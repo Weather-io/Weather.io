@@ -3,9 +3,13 @@ const path = require ('path');
 const app = express();
 const PORT = 8080;
 const weatherController = require('./controllers/weatherController');
+const db = require('./database');
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+
+//connect to database
+db();
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));

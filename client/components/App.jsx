@@ -8,7 +8,9 @@ function App() {
       <div>
         <nav>
           {/*navigation links */}
-          <Link to="/">Home</Link>
+          <div id='nav-bar'>
+            <Link id='home-nav' to="/">Home</Link>
+          </div>
         </nav>
         <Routes>
           {/* Route for the root path that renders CurrentContainer */}
